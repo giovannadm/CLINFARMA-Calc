@@ -65,21 +65,12 @@ export default function ScoreForm({ scoreKey }) {
             )}
         >
             <div>
-                <span className="text-[#000a] mr-2">
-                    Público-Alvo:
-                </span>
-                <span>
-                    Pacientes com condições crônicas que exigem uso contínuo de medicamentos
-                </span>
+                <span className="text-[#000a] mr-2">Público-Alvo:</span>
+                <span>{score.targetAudience}</span>
             </div>
-
             <div>
-                <span className="text-[#000a] mr-2">
-                    Tempo:
-                </span>
-                <span>
-                    5 à 10 minutos
-                </span>
+                <span className="text-[#000a] mr-2">Tempo:</span>
+                <span>{score.durationText}</span>
             </div>
 
             <div className="mt-4 font-semibold">

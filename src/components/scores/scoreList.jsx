@@ -12,7 +12,7 @@ export default function ScoresList({ onSelect }) {
         setSearchText(val);    
     }
 
-    const filteredScores = scores.filter(score => score.label.includes(searchText));
+    const filteredScores = scores.filter(score => score.label.toLowerCase().includes(searchText.toLowerCase()));
     
     return (
         <div className="w-full h-full flex flex-col gap-6 p-6 md:p-8">
