@@ -11,7 +11,9 @@ export default function ScoreForm({ scoreKey }) {
 
     const [selectedRadio, setSelectedRadio] = useState(score.options[0]);
     const [currentState, setCurrentState] = useState('start');
-    const [resultPoints, setResultPoints] = useState(0);
+    const [result, setResult] = useState({
+        result: 0, feedback: ''
+    });
     const [selectedOptions, setSelectedOptions] = useState(new Array(score.questions.length).fill(null));
 
     const handleScoreSelection = (questionIndex, value) => {
@@ -24,13 +26,9 @@ export default function ScoreForm({ scoreKey }) {
 
     const handleFinishForm = () => {
         // Lógica para calcular a pontuação
-        setResultPoints(42);
+        const finalResult = score.calculateFunction(selectedOptions);
+        setResult(finalResult);
         setCurrentState('result');
-    }
-
-    const getRecomendation = () => {
-        // Lógica de Recomendação, não sei se vai buscar no objeto direto ou fazer dinamicamente
-        return 'Uma recomendação'
     }
 
     const getEmoji = () => {
@@ -47,7 +45,7 @@ export default function ScoreForm({ scoreKey }) {
 
     const restartScore = () => {
         setSelectedOptions(new Array(score.questions.length).fill(null));
-        setResultPoints(0);
+        setResult({ result: 0, feedback: '' });
         setCurrentState('start');
     }
 
@@ -80,10 +78,10 @@ export default function ScoreForm({ scoreKey }) {
                 <Radio.Group onChange={e => setSelectedRadio(e.target.value)} value={selectedRadio}>
                     {score.options.map(option => (
                         <Radio
-                            key={option}
-                            value={option}
+                            key={option.value}
+                            value={option.value}
                         >
-                            {option}
+                            {option.label}
                         </Radio>
                     ))}
                 </Radio.Group>
@@ -108,7 +106,7 @@ export default function ScoreForm({ scoreKey }) {
                             </div>
 
                             <div>
-                                {question}
+                                {question.text}
                             </div>
                         </div>
 
@@ -118,12 +116,12 @@ export default function ScoreForm({ scoreKey }) {
                                 value={selectedOptions[index]}
                             >
                                 <div className="flex flex-col md:flex-row">
-                                    {score.options.map(option => (
+                                    {(question.options || score.options).map(option => (
                                         <Radio
-                                            key={option}
-                                            value={option}
+                                            key={option.value}
+                                            value={option.value}
                                         >
-                                            {option}
+                                            {option.label}
                                         </Radio>
                                     ))}
                                 </div>
@@ -145,7 +143,7 @@ export default function ScoreForm({ scoreKey }) {
         <Card title={score.label}>
             <div className="flex flex-col md:flex-row gap-6">
                 <Card>
-                    <Statistic title="Resultado" suffix={getEmoji()} value={resultPoints} />
+                    <Statistic title="Resultado" suffix={getEmoji()} value={result.result} />
                 </Card>
                 <div>
                     <div className="font-medium">{score.hintText}</div>
@@ -154,7 +152,7 @@ export default function ScoreForm({ scoreKey }) {
                             Recomendação:
                         </span>
                         <span>
-                            {getRecomendation()}
+                            {result.feedback}
                         </span>
                     </div>
                     <div className="mt-4 flex gap-4">
@@ -179,6 +177,6 @@ export default function ScoreForm({ scoreKey }) {
     return (
         <div className="w-full h-auto p-6 md:p-8">
             {states[currentState]()}
-        </div>
-    )
+        </div>
+    )
 }
