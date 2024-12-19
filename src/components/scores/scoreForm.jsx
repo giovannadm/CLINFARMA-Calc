@@ -34,7 +34,7 @@ export default function ScoreForm({ scoreKey }) {
     const getEmoji = () => {
         // Lógica para mostrar emoji e cor
         switch (true) {
-        case resultPoints < 50: {
+        case result.result < 50: {
             return <FontAwesomeIcon icon={faFaceFrown} className="ml-1 text-red-5" />
         }
         default: {
