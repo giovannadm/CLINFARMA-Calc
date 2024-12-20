@@ -3,6 +3,7 @@ import { scores } from "../../utils/constants/scoresConstants";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import jsPDF from 'jspdf';
 
 export default function ScoreForm({ scoreKey }) {
 
@@ -40,6 +41,14 @@ export default function ScoreForm({ scoreKey }) {
         setResult({ result: 0, feedback: '' });
         setCurrentState('start');
     }
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        doc.text(`Label: ${scores[0].label}`, 10, 10);
+        doc.text(`Resultado: ${result.result}`, 10, 20);
+        doc.text(result.feedback, 10, 30);
+        doc.save('feedback.pdf');
+    };
 
     const renderStart = () => (
         <Card
@@ -152,7 +161,7 @@ export default function ScoreForm({ scoreKey }) {
                             Refazer Escore
                         </Button>
                         <Tooltip title="Baixar Resultado">
-                            <Button icon={<FontAwesomeIcon icon={faDownload} />} />
+                            <Button icon={<FontAwesomeIcon icon={faDownload} />} onClick={downloadPDF} />
                         </Tooltip>
                     </div>
                 </div>
