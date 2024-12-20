@@ -1,3 +1,5 @@
+import { faFaceFrown, faFaceSmile, faFaceMeh } from "@fortawesome/free-regular-svg-icons";
+
 export const scores = [
     {
         key: 'arms',
@@ -294,7 +296,20 @@ export const scores = [
             - Caso existam programas de apoio ao paciente ou benefícios disponíveis, informe como ele pode acessá-los.`;
             }
             return { result, feedback };
-        }
+        },
+        getEmoji: value => {
+            switch (true) {
+            case value <= 12: {
+                return { icon: faFaceSmile, color : '#389e0d'}
+            }
+            case (value > 12 && value < 30): {
+                return { icon: faFaceMeh, color : '#ffd43b'}
+            }
+            case value >= 30: {
+                return { icon: faFaceFrown, color : '#ff4d4f'}
+            }
+            }
+        },
     },
     {
         key: 'act',
@@ -463,7 +478,20 @@ export const scores = [
                 -Reforçar com o paciente os resultados positivos e estimular a manter os cuidados relacionados às medidas não farmacológicas e a adesão ao tratamento.`;
             }
             return { result, feedback };
-        }
+        },
+        getEmoji: value => {
+            switch (true) {
+            case value >= 21: {
+                return { icon: faFaceSmile, color : '#389e0d'}
+            }
+            case (value > 15 && value < 19): {
+                return { icon: faFaceMeh, color : '#ffd43b'}
+            }
+            case value < 15: {
+                return { icon: faFaceFrown, color : '#ff4d4f'}
+            }
+            }
+        },
     },
     {
         key: 'dpoc',
@@ -705,7 +733,20 @@ export const scores = [
                 - Reforce a importância do acompanhamento rigoroso e possível ajuste terapêutico em curto prazo.`;
             }
             return { result, feedback };
-        }
+        },
+        getEmoji: value => {
+            switch (true) {
+            case value <= 9: {
+                return { icon: faFaceSmile, color : '#389e0d'}
+            }
+            case (value >= 10 && value < 30): {
+                return { icon: faFaceMeh, color : '#ffd43b'}
+            }
+            case value >= 30: {
+                return { icon: faFaceFrown, color : '#ff4d4f'}
+            }
+            }
+        },
     },
     {
         key: 'nrnj',
@@ -876,7 +917,7 @@ export const scores = [
                     - Avalie a possibilidade de reduzir a dose, ajustar o regime de administração ou trocar o medicamento, caso necessário;
                     - Ofereça orientações claras sobre os sinais de recorrência e o que fazer em caso de novos sintomas;
                     - Considere um acompanhamento mais frequente do paciente para garantir que a reação não se agrave.`;
-            } else if (result >= 5 && result <= 8) {
+            } else if (result >= 1 && result <= 4) {
                 feedback = `Reação Possível
                 A relação entre o medicamento e a reação adversa é possível, mas outras causas podem estar envolvidas.
                 Sugestões de intervenção:
@@ -895,6 +936,19 @@ export const scores = [
                     - Mantenha o acompanhamento do paciente e forneça orientações sobre cuidados gerais.`;
             }
             return { result, feedback };
-        }
+        },
+        getEmoji: value => {
+            switch (true) {
+            case value <= 0: {
+                return { icon: faFaceSmile, color : '#389e0d'}
+            }
+            case (value >= 1 && value < 9): {
+                return { icon: faFaceMeh, color : '#ffd43b'}
+            }
+            case value >= 9: {
+                return { icon: faFaceFrown, color : '#ff4d4f'}
+            }
+            }
+        },
     }
 ];

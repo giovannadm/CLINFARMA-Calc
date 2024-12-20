@@ -2,7 +2,6 @@ import { Button, Card, Radio, Statistic, Tooltip } from "antd";
 import { scores } from "../../utils/constants/scoresConstants";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceFrown, faFaceSmile } from "@fortawesome/free-regular-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 export default function ScoreForm({ scoreKey }) {
@@ -32,16 +31,9 @@ export default function ScoreForm({ scoreKey }) {
     }
 
     const getEmoji = () => {
-        // Lógica para mostrar emoji e cor
-        switch (true) {
-        case result.result < 50: {
-            return <FontAwesomeIcon icon={faFaceFrown} className="ml-1 text-red-5" />
-        }
-        default: {
-            return <FontAwesomeIcon icon={faFaceSmile} className="ml-1 text-green-7" />
-        }
-        }
-    }
+        const { icon, color } = score.getEmoji(result.result);
+        return <FontAwesomeIcon icon={icon} className="ml-1" style={{color : color}} />
+    }
 
     const restartScore = () => {
         setSelectedOptions(new Array(score.questions.length).fill(null));
