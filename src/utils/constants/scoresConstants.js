@@ -248,33 +248,26 @@ export const scores = [
                 options: [
                     {
                         label: 'Nunca',
-                        value: 1
+                        value: 4
                     },
                     {
                         label: 'Às vezes',
-                        value: 2
-                    },
-                    {
-                        label: 'Quase sempre',
                         value: 3
                     },
                     {
+                        label: 'Quase sempre',
+                        value: 2
+                    },
+                    {
                         label: 'Sempre',
-                        value: 4
+                        value: 1
                     },
                 ]
             },
         ],
         calculateFunction: (finalValue = []) => {
-            //(soma das primeiras 8 perguntas divido por 36) + (soma das restantes divido por 12) /48
-            let T = 0;
-            let R = 0;
-            finalValue.forEach((value, index) => {
-                if (index <= 8)
-                    T += value;
-                R += value;
-            });
-            const result = (T/36 + R/12)/48;
+            //soma das perguntas, varia de 12 a 48
+            const result = finalValue.reduce((acc, value) => acc + value, 0);
             let feedback;
             if (result <= 12) {
                 feedback = `Esse paciente demonstra uma BOA adesão ao tratamento farmacológico. 
