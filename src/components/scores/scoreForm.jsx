@@ -15,6 +15,9 @@ export default function ScoreForm({ scoreKey }) {
         result: 0, feedback: ''
     });
     const [selectedOptions, setSelectedOptions] = useState(new Array(score.questions.length).fill(null));
+    const [nomePaciente, setNomePaciente] = useState('');
+    const [farmaceutico, setFarmaceutico] = useState('');
+    const [data, setData] = useState('');
 
     const handleScoreSelection = (questionIndex, value) => {
         setSelectedOptions(prev => [
@@ -44,9 +47,13 @@ export default function ScoreForm({ scoreKey }) {
 
     const downloadPDF = () => {
         const doc = new jsPDF();
-        doc.text(`Label: ${scores[0].label}`, 10, 10);
-        doc.text(`Resultado: ${result.result}`, 10, 20);
-        doc.text(result.feedback, 10, 30);
+        const textoFeedback = `${scores[0].label}\n\nResultado: ${result.result}\n\nPaciente: ${nomePaciente}\nFarmacêutico: ${farmaceutico}\nData: ${data}\n\nRecomendação: ${result.feedback}`;
+        const feedback = doc.splitTextToSize(textoFeedback, 180);
+        let yOffset = 10;
+        feedback.forEach(linha => {
+            doc.text(linha, 5, yOffset);
+            yOffset += 10;
+        })
         doc.save('feedback.pdf');
     };
 
@@ -156,6 +163,28 @@ export default function ScoreForm({ scoreKey }) {
                             {result.feedback}
                         </span>
                     </div>
+                    <div className="flex flex-col py-6 md:flex-row gap-6">
+                        <label htmlFor="nomePaciente">Nome do Paciente:  </label>
+                        <input
+                            type="text"
+                            placeholder="Nome do Paciente"
+                            value={nomePaciente}
+                            onChange={(e) => setNomePaciente(e.target.value)}
+                        />
+                        <label htmlFor="farmaceutico">Nome do Farmacêutico:  </label>
+                        <input
+                            type="text"
+                            placeholder="Farmacêutico"
+                            value={farmaceutico}
+                            onChange={(e) => setFarmaceutico(e.target.value)}
+                        />
+                        <label htmlFor="data">Data:  </label>
+                        <input
+                            type="date"
+                            value={data}
+                            onChange={(e) => setData(e.target.value)}
+                        />
+                    </div>
                     <div className="mt-4 flex gap-4">
                         <Button type="primary" onClick={restartScore}>
                             Refazer Escore

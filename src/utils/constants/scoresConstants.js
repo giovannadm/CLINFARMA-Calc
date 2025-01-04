@@ -3,7 +3,7 @@ import { faFaceFrown, faFaceSmile, faFaceMeh } from "@fortawesome/free-regular-s
 export const scores = [
     {
         key: 'arms',
-        label: 'Escala de Adesão aos Medicamentos e ao Reabastecimento dos Medicamentos',
+        label: 'Escala de Adesão aos Medicamentos e ao Reabastecimento dos Medicamentos (ARMS)',
         description: 'Escala de avaliação da adesão aos medicamentos que pode ser aplicada em pacientes com qualquer nível de letramento.',
         targetAudience: 'Pacientes com condições crônicas que exigem uso contínuo de medicamento.',
         hintText: 'Pontuação próxima à 48 indica pior adesão aos medicamentos.',
@@ -306,7 +306,7 @@ export const scores = [
     },
     {
         key: 'act',
-        label: 'Teste de controle da Asma',
+        label: 'Teste de controle da Asma (ACT)',
         description: 'Avaliar o controle da asma nas últimas 4 semanas.',
         targetAudience: 'Pacientes adultos diagnosticados com asma.',
         hintText: 'Quanto maior o escore, mais controlada é a asma.',
